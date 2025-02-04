@@ -47,6 +47,11 @@ public class Fabrica {
         return new RegistrarObservadorComando();
     }
 
+    public static ConsultarNotificacoesRecebidasComando criarInstanciaDeConsultarNotificacoesRecebidas()
+    {
+        return new ConsultarNotificacoesRecebidasComando();
+    }
+
     public static Exemplar criarExemplar(String CodigoDoExemplar)
     {
         return new Exemplar(CodigoDoExemplar);

@@ -30,7 +30,7 @@ public class Livro implements Sujeito
     {
         this.listaDeObservadores.add(observador);
         Professor observadorCasting = (Professor) observador;
-        String mensagemDeRetorno = String.format("Observador %s registrado para o livro %s !", observadorCasting.getNome(), this.getTitulo());
+        String mensagemDeRetorno = String.format("\nObservador %s registrado para o livro %s.\n", observadorCasting.getNome(), this.getTitulo());
         return mensagemDeRetorno; 
     }
 

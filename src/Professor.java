@@ -28,12 +28,12 @@ public class Professor extends UsuarioAbstrato implements Observador
             super.livrosEmEmprestimo.add(livro);
             repositorio.removerReservaDaLista(super.codigoDoUsuario, livro.getCodigo());
             livro.obterExemplarDisponivel().indisponibilizarExemplar();
-            mensagemDeRetorno = String.format("Empréstimo do livro %s realizado para o usuário %s", livro.getTitulo() ,super.getNome());
+            mensagemDeRetorno = String.format("\nEmpréstimo do livro %s realizado para o usuário %s.\n", livro.getTitulo() ,super.getNome());
             return mensagemDeRetorno;
         }
         else
         {
-            mensagemDeRetorno = String.format("Não foi possível realizar o empréstimo do livro %s para o usuário %s", livro.getTitulo() ,super.getNome());
+            mensagemDeRetorno = String.format("\nNão foi possível realizar o empréstimo do livro %s para o usuário %s.\n", livro.getTitulo() ,super.getNome());
             return mensagemDeRetorno;
         }
     }
@@ -50,12 +50,12 @@ public class Professor extends UsuarioAbstrato implements Observador
             repositorio.removerEmprestimoDaLista(this.getCodigo(), livro.getCodigo());
             super.livrosEmEmprestimo.remove(livro);
             livro.obterExemplarIndisponivel().disponibilizarExemplar();
-            mensagemDeRetorno = String.format("Devolução do livro %s realizada com sucesso para o usuário %s", livro.getTitulo() ,super.getNome());
+            mensagemDeRetorno = String.format("\nDevolução do livro %s realizada com sucesso para o usuário %s.\n", livro.getTitulo() ,super.getNome());
             return mensagemDeRetorno;
         }
         else
         {
-            mensagemDeRetorno = String.format("Não foi possível realizar a devolução do livro %s para o usuário %s, pois não há empréstimos em aberto", livro.getTitulo() ,super.getNome());
+            mensagemDeRetorno = String.format("\nNão foi possível realizar a devolução do livro %s para o usuário %s, pois não há empréstimos em aberto.\n", livro.getTitulo() ,super.getNome());
             return mensagemDeRetorno;
         }
     }
@@ -73,18 +73,30 @@ public class Professor extends UsuarioAbstrato implements Observador
             Repositorio repositorio = Repositorio.obterInstancia();
             Reserva reserva = Fabrica.criarReserva(this, livro);
             repositorio.adicionarReserva(reserva);
-            mensagemDeRetorno = String.format("Reserva do livro %s realizada com sucesso para o usuário %s", livro.getTitulo() ,super.getNome());
+            mensagemDeRetorno = String.format("\nReserva do livro %s realizada com sucesso para o usuário %s.\n", livro.getTitulo() ,super.getNome());
             return mensagemDeRetorno;
         }
         else{
-            mensagemDeRetorno = String.format("Não foi possível realizar a reserva do livro %s para o usuário %s, pois o usuário já excedeu o limite máximo de reservas", livro.getTitulo() ,super.getNome());
+            mensagemDeRetorno = String.format("\nNão foi possível realizar a reserva do livro %s para o usuário %s, pois o usuário já excedeu o limite máximo de reservas.\n", livro.getTitulo() ,super.getNome());
             return mensagemDeRetorno;
         }
     }
 
     public void notificar(Livro livro)
     {
-        System.out.println(String.format("\n[NOTIFICAÇÃO]: Atenção, Professor %s, o livro %s possui mais de duas reservas \n",super.getNome(), livro.getTitulo()));
+        System.out.println(String.format("\n[NOTIFICAÇÃO]: Atenção, Professor %s, o livro %s possui mais de duas reservas \n", super.getNome(), livro.getTitulo()));
         this.contadorDeNotificacoesRecebidas++;
     }
+
+    public String obterQuantidadeDeNotificacoes()
+    {
+        String mensagemDeRetorno = String.format("\nA quantidade de notificações recebidas pelo professor %s é %d\n", super.getNome(), this.getContadorDeNotificacoesRecebidas());
+        return mensagemDeRetorno;
+    }
+    
+    public int getContadorDeNotificacoesRecebidas()
+    {
+        return this.contadorDeNotificacoesRecebidas;
+    }
+
 }

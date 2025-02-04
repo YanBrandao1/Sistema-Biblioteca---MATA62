@@ -8,6 +8,7 @@ public class InterfaceUsuario {
 		comandos.put("dev", Fabrica.criarInstanciaDeComandoDevolver());
 		comandos.put("res", Fabrica.criarInstanciaDeComandoReservar());
 		comandos.put("obs", Fabrica.criarInstanciaDeComandoRegistrarObservador());
+		comandos.put("ntf", Fabrica.criarInstanciaDeConsultarNotificacoesRecebidas());
 		
 	}
 	
@@ -84,6 +85,8 @@ public class InterfaceUsuario {
 		this.inicializarComandos();
 		CarregadorParametros parametros = new CarregadorParametros(usuario4.getCodigo(),livro1.getCodigo());
 
+		
+
 		String comando5 = this.executarComando("obs", parametros);
 		System.out.println(comando5);
 
@@ -102,6 +105,15 @@ public class InterfaceUsuario {
 		String comando6 = this.executarComando("res", parametros);
 		System.out.println(comando6);
 
+		parametros.setParametroUm(usuario1.getCodigo());
+
+		String comando7 = this.executarComando("res", parametros);
+		System.out.println(comando7);
+		
+		parametros.setParametroUm(usuario4.getCodigo());
+
+		String comando8 = this.executarComando("ntf", parametros);
+		System.out.println(comando8);
 		
 	}
 	
