@@ -1,5 +1,4 @@
 
-
 // Utilização do padrão Strategy para implementar a lógica dos usuários
 
 import java.util.ArrayList;

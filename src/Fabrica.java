@@ -25,7 +25,7 @@ public class Fabrica {
     }
 
 
-    public static EmprestarComando criarInstanciaDeComandoExecutar()
+    public static EmprestarComando criarInstanciaDeComandoEmprestar()
     {
         return new EmprestarComando();
     }
@@ -40,6 +40,11 @@ public class Fabrica {
     public static ReservarComando criarInstanciaDeComandoReservar()
     {
         return new ReservarComando();
+    }
+
+    public static RegistrarObservadorComando criarInstanciaDeComandoRegistrarObservador()
+    {
+        return new RegistrarObservadorComando();
     }
 
     public static Exemplar criarExemplar(String CodigoDoExemplar)

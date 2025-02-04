@@ -14,10 +14,18 @@ public class CarregadorParametros {
 	}
 	
 	public String getParametroUm() {
-		return parametroUm;
+		return this.parametroUm;
 	}
 	public String getParametroDois() {
-		return parametroDois;
+		return this.parametroDois;
+	}
+
+	public void setParametroUm(String parametro) {
+		this.parametroUm = parametro;
+	}
+
+	public void setParametroDois(String parametro) {
+		this.parametroDois = parametro;
 	}
 
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Livro 
+public class Livro implements Sujeito
 {
     private String codigo;
     private String titulo;
@@ -11,7 +11,7 @@ public class Livro
     private String anoPublicacao;
     private List<Exemplar> exemplares = new ArrayList<Exemplar>();
     private int quantidadeDeExemplares;
-
+    private List<Observador> listaDeObservadores = new ArrayList<Observador>();
    
 
     public Livro(String codigo, String titulo, String editora, String autores, String edicao, String anoPublicacao)
@@ -25,6 +25,21 @@ public class Livro
         quantidadeDeExemplares = 0;
     }
 
+    @Override
+    public String registrarObservador(Observador observador)
+    {
+        this.listaDeObservadores.add(observador);
+        Professor observadorCasting = (Professor) observador;
+        String mensagemDeRetorno = String.format("Observador %s registrado para o livro %s !", observadorCasting.getNome(), this.getTitulo());
+        return mensagemDeRetorno; 
+    }
+
+    @Override
+    public void notificarObservadores()
+    {
+        if(this.listaDeObservadores != null)
+            this.listaDeObservadores.forEach(observador -> observador.notificar(this));
+    }
 
     public String getCodigo()
     {

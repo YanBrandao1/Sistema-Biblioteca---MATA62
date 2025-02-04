@@ -123,8 +123,34 @@ public class Repositorio
         return quantidadeDeReservas;
     }
 
+    public int obterQuantidadeDeReservasDeUmLivro(Livro livro)
+    {
+        int quantidadeDeReservas = 0;
+        for (Reserva reserva : reservas)
+        {
+            if (reserva.getCodigoDoLivro().equals(livro.getCodigo()))
+            {
+                quantidadeDeReservas++;
+            }
+        }
+        return quantidadeDeReservas;
+    }
+
     public void adicionarReserva(Reserva reserva)
     {
         reservas.add(reserva);
+        this.verificarQuantidadeDeReservasDeUmLivro(reserva);
+    }
+
+    public void verificarQuantidadeDeReservasDeUmLivro(Reserva reserva)
+    {
+        String codigoDoLivroReservado = reserva.getCodigoDoLivro();
+        Livro livroReservado = obterLivroPorCodigo(codigoDoLivroReservado);
+        int quantidadeDeReservarDoLivro = this.obterQuantidadeDeReservasDeUmLivro(livroReservado);
+
+        if (quantidadeDeReservarDoLivro > 2)
+        {
+            livroReservado.notificarObservadores();
+        }
     }
 }

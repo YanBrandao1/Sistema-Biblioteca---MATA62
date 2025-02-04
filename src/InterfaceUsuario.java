@@ -4,9 +4,10 @@ public class InterfaceUsuario {
 	private HashMap<String,Comando> comandos = new HashMap<String,Comando>();
 	
 	private void inicializarComandos() {
-		comandos.put("emp", Fabrica.criarInstanciaDeComandoExecutar());
+		comandos.put("emp", Fabrica.criarInstanciaDeComandoEmprestar());
 		comandos.put("dev", Fabrica.criarInstanciaDeComandoDevolver());
 		comandos.put("res", Fabrica.criarInstanciaDeComandoReservar());
+		comandos.put("obs", Fabrica.criarInstanciaDeComandoRegistrarObservador());
 		
 	}
 	
@@ -81,16 +82,27 @@ public class InterfaceUsuario {
 
 
 		this.inicializarComandos();
-		CarregadorParametros parametros = new CarregadorParametros(usuario3.getCodigo(),livro1.getCodigo());
+		CarregadorParametros parametros = new CarregadorParametros(usuario4.getCodigo(),livro1.getCodigo());
+
+		String comando5 = this.executarComando("obs", parametros);
+		System.out.println(comando5);
+
+		System.out.println();
 
 		String comando1 = this.executarComando("res", parametros);
 		System.out.println(comando1);
 			
-		String comando4 = this.executarComando("emp", parametros);
+		System.out.println();
+
+		String comando4 = this.executarComando("res", parametros);
 		System.out.println(comando4);
 
-		String comando5 = this.executarComando("dev", parametros);
-		System.out.println(comando5);
+		System.out.println();
+
+		String comando6 = this.executarComando("res", parametros);
+		System.out.println(comando6);
+
+		
 	}
 	
 

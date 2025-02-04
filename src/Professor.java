@@ -1,14 +1,16 @@
 import java.time.LocalDateTime;
 
 
-public class Professor extends UsuarioAbstrato
+public class Professor extends UsuarioAbstrato implements Observador
 {
+    int contadorDeNotificacoesRecebidas;
 
     public Professor(String codigoDoUsuario, String nome)
     {
         super.codigoDoUsuario = codigoDoUsuario;
         super.nome = nome;
         super.tempoLimiteDeEmprestimo = 8;
+        this.contadorDeNotificacoesRecebidas = 0;
     }
 
     @Override
@@ -78,5 +80,11 @@ public class Professor extends UsuarioAbstrato
             mensagemDeRetorno = String.format("Não foi possível realizar a reserva do livro %s para o usuário %s, pois o usuário já excedeu o limite máximo de reservas", livro.getTitulo() ,super.getNome());
             return mensagemDeRetorno;
         }
+    }
+
+    public void notificar(Livro livro)
+    {
+        System.out.println(String.format("\n[NOTIFICAÇÃO]: Atenção, Professor %s, o livro %s possui mais de duas reservas \n",super.getNome(), livro.getTitulo()));
+        this.contadorDeNotificacoesRecebidas++;
     }
 }
