@@ -56,4 +56,9 @@ public class Fabrica {
     {
         return new Exemplar(CodigoDoExemplar);
     }
+
+    public static ConsultarInformacoesDeLivroComando criarInstanciaDeConsultarInformacoesDeLivroComando()
+    {
+        return new ConsultarInformacoesDeLivroComando();
+    }
 }

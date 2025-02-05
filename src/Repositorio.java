@@ -153,4 +153,27 @@ public class Repositorio
             livroReservado.notificarObservadores();
         }
     }
+
+    public UsuarioAbstrato obterUsuarioQuePegouLivroEmprestado(String codigoDoLivro)
+    {
+        for(Emprestimo emprestimo : emprestimos)
+        {
+            if (emprestimo.getCodigoDoLivro() == codigoDoLivro)
+            {
+                UsuarioAbstrato usuarioQuePegouEmprestado = this.obterUsuarioPorCodigo(emprestimo.getCodigoDoUsuario());
+                return usuarioQuePegouEmprestado;
+            }
+        }
+        return null;
+    }
+
+    public Emprestimo obterEmprestimo(UsuarioAbstrato usuario, Livro livro)
+    {
+        for(Emprestimo emprestimo : emprestimos)
+        {
+            if(emprestimo.getCodigoDoUsuario() == usuario.getCodigo() && emprestimo.getCodigoDoLivro() == livro.getCodigo())
+                return emprestimo;
+        }
+        return null;
+    }
 }

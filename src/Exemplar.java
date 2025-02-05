@@ -5,12 +5,14 @@ public class Exemplar {
     private boolean disponivel;
     private String codigoExemplar;
 
-    public Exemplar(String codigoExemplar) {
+    public Exemplar(String codigoExemplar)
+    {
+        this.codigoExemplar = codigoExemplar;
         this.disponivel = true;
     }
 
     public boolean isDisponivel() {
-        return disponivel;
+        return this.disponivel;
     }
 
     public void emprestar() {
@@ -19,7 +21,7 @@ public class Exemplar {
 
     public String getCodigoExemplar()
     {
-        return codigoExemplar;
+        return this.codigoExemplar;
     }
 
     public void indisponibilizarExemplar()

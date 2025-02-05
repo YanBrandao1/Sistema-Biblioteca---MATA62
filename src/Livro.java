@@ -1,7 +1,9 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Livro implements Sujeito
+public class Livro implements Sujeito, RegraConsultaDeInformacoesDeUmLivroAbstrato
 {
     private String codigo;
     private String titulo;
@@ -93,5 +95,67 @@ public class Livro implements Sujeito
                 return exemplar;
         }
         return null;
+    }
+
+    public List<Exemplar> obterListaDeExemplares()
+    {
+        return this.exemplares;
+    }
+
+    @Override
+    public String consultarInformacoesDoLivro(String codigoDoLivro)
+    {
+        Repositorio repositorio = Repositorio.obterInstancia();
+        String mensagemDeRetorno = "*Título: ";
+        String nomeDoLivro = this.getTitulo();
+        mensagemDeRetorno += nomeDoLivro + "\n";
+        int quantidadeDeReservasDoLivro = repositorio.obterQuantidadeDeReservasDeUmLivro(this);
+        mensagemDeRetorno += "*Quantidade de reservas: " + quantidadeDeReservasDoLivro + "\n";
+        List<Reserva> reservasDoLivro = repositorio.obterReservasDeUmLivro(codigoDoLivro);
+
+        if (quantidadeDeReservasDoLivro != 0)
+        {
+            mensagemDeRetorno += "*Usuários que realizaram as reservas: \n";
+            for(Reserva reserva : reservasDoLivro)
+            {
+                String codigoDoUsuarioQueReservou = reserva.getCodigoDoUsuario();
+                UsuarioAbstrato usuarioQueReservou = repositorio.obterUsuarioPorCodigo(codigoDoUsuarioQueReservou);
+                String nomeDoUsuarioQueReservou = usuarioQueReservou.getNome();
+                mensagemDeRetorno += " - "+ nomeDoUsuarioQueReservou + "\n";
+            }
+        }
+
+        List<Exemplar> listaDeExemplares = this.obterListaDeExemplares();
+
+        if (listaDeExemplares != null)
+        {
+            mensagemDeRetorno += "*Lista de Exemplares: \n";
+            for (Exemplar exemplar : listaDeExemplares)
+            {
+                String codigoDoExemplar = exemplar.getCodigoExemplar();
+                boolean disponibilidadeDoExemplar = exemplar.isDisponivel();
+                String statusDoExemplar;
+                if (disponibilidadeDoExemplar)
+                    statusDoExemplar = "Disponível";
+                else
+                    statusDoExemplar = "Indisponível";
+                mensagemDeRetorno += "**Código do exemplar: " + codigoDoExemplar +" ; Status do Exemplar: " + statusDoExemplar + "\n";
+
+                if(!disponibilidadeDoExemplar)
+                {
+                    UsuarioAbstrato usuarioQuePegouOLivroEmprestado = repositorio.obterUsuarioQuePegouLivroEmprestado(codigoDoLivro);
+                    String nomeDoUsuario = usuarioQuePegouOLivroEmprestado.getNome();
+                    Emprestimo emprestimo = repositorio.obterEmprestimo(usuarioQuePegouOLivroEmprestado, this);
+                    LocalDate dataDaRealizacaoDoEmprestimo = emprestimo.getDataInicio().toLocalDate();
+                    int tempoLimiteDeEmprestimo = usuarioQuePegouOLivroEmprestado.getTempoLimiteDeEmprestimo();
+                    LocalDate tempoPrevistoParaDevolucaoDoExemplar = dataDaRealizacaoDoEmprestimo.plusDays(tempoLimiteDeEmprestimo);
+                    mensagemDeRetorno += "  - Usuário que realizou o empréstimo: " + nomeDoUsuario + ".\n"
+                     + "  - Data de realização do empréstimo: " +  dataDaRealizacaoDoEmprestimo + ".\n"
+                     + "  - O prazo previsto para devolução é: " + tempoPrevistoParaDevolucaoDoExemplar + ".\n";
+                }
+            }
+        }
+        return mensagemDeRetorno;
+
     }
 }

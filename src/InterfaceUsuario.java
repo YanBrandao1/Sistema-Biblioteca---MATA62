@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
 public class InterfaceUsuario {
+
 	private HashMap<String,Comando> comandos = new HashMap<String,Comando>();
 	
 	private void inicializarComandos() {
@@ -9,7 +10,7 @@ public class InterfaceUsuario {
 		comandos.put("res", Fabrica.criarInstanciaDeComandoReservar());
 		comandos.put("obs", Fabrica.criarInstanciaDeComandoRegistrarObservador());
 		comandos.put("ntf", Fabrica.criarInstanciaDeConsultarNotificacoesRecebidas());
-		
+		comandos.put("liv", Fabrica.criarInstanciaDeConsultarInformacoesDeLivroComando());
 	}
 	
 	public String executarComando(String strComando, CarregadorParametros parametros) {
@@ -114,7 +115,15 @@ public class InterfaceUsuario {
 
 		String comando8 = this.executarComando("ntf", parametros);
 		System.out.println(comando8);
+
+		String comando10 = this.executarComando("emp", parametros);
+		System.out.println(comando10);
 		
+		String comando11 = this.executarComando("emp", parametros);
+		System.out.println(comando11);
+
+		String comando9 = this.executarComando("liv", parametros);
+		System.out.println(comando9);
 	}
 	
 
