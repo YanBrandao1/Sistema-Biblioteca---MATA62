@@ -32,7 +32,7 @@ public class Repositorio
     {
         for (UsuarioAbstrato usuario : usuarios)
         {
-            if (usuario.getCodigo() == codigoDoUsuario)
+            if (usuario.getCodigo().equals(codigoDoUsuario))
                 return usuario;
         }
         return null;
@@ -42,7 +42,7 @@ public class Repositorio
     {
         for (Livro livro : livros)
         {
-            if (livro.getCodigo() == codigoDoLivro)
+            if (livro.getCodigo().equals(codigoDoLivro))
                 return livro;
         }
         return null;
@@ -160,7 +160,7 @@ public class Repositorio
     {
         for(Emprestimo emprestimo : emprestimos)
         {
-            if (emprestimo.getCodigoDoLivro() == codigoDoLivro)
+            if (emprestimo.getCodigoDoLivro().equals(codigoDoLivro))
             {
                 UsuarioAbstrato usuarioQuePegouEmprestado = this.obterUsuarioPorCodigo(emprestimo.getCodigoDoUsuario());
                 return usuarioQuePegouEmprestado;
@@ -173,7 +173,7 @@ public class Repositorio
     {
         for(Emprestimo emprestimo : emprestimos)
         {
-            if(emprestimo.getCodigoDoUsuario() == usuario.getCodigo() && emprestimo.getCodigoDoLivro() == livro.getCodigo())
+            if(emprestimo.getCodigoDoUsuario().equals(usuario.getCodigo()) && emprestimo.getCodigoDoLivro().equals(livro.getCodigo()))
                 return emprestimo;
         }
         return null;
@@ -183,7 +183,7 @@ public class Repositorio
     {
         for(Reserva reserva : reservas)
         {
-            if(reserva.getCodigoDoUsuario() == usuario.getCodigo())
+            if(reserva.getCodigoDoUsuario().equals(usuario.getCodigo()))
                 return reserva;
         }
         return null;
@@ -199,7 +199,7 @@ public class Repositorio
         List<Emprestimo> emprestimosDoUsuario = new ArrayList<Emprestimo>();
         for (Emprestimo emprestimo : emprestimos)
         {
-            if (emprestimo.getCodigoDoUsuario() == codigoDoUsuario)
+            if (emprestimo.getCodigoDoUsuario().equals(codigoDoUsuario))
             {
              emprestimosDoUsuario.add(emprestimo);
             }
@@ -213,13 +213,13 @@ public class Repositorio
 
         for(Reserva reserva : reservas)
         {
-            if(reserva.getCodigoDoUsuario() == usuario.getCodigo())
+            if(reserva.getCodigoDoUsuario().equals(usuario.getCodigo()))
                 totalDeReservas.add(reserva);
         }
         
         for(Reserva reserva : reservasInativas)
         {
-            if(reserva.getCodigoDoUsuario() == usuario.getCodigo())
+            if(reserva.getCodigoDoUsuario().equals(usuario.getCodigo()))
                 totalDeReservas.add(reserva);
         }
 

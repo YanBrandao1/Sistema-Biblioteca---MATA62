@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class InterfaceUsuario {
 
@@ -20,6 +21,27 @@ public class InterfaceUsuario {
 		return retorno;
 	}
 	
+	public void exibirListaDeComandos()
+	{
+		System.out.println("Lista de comandos: ");
+		System.out.println();
+		System.out.println("1) Para realizar um empréstimo, digite o comando 'emp', seguido do código do usuário e código do livro.");
+		System.out.println("2) Para realizar uma devolução, digite o comando 'dev', seguido do código do usuário e código do livro.");
+		System.out.println("3) Para realizar uma reserva, digite o comando 'res', seguido do código do usuário e código do livro.");
+		System.out.println("4) Para cadastrar um professor como observador, digite o comando 'obs', seguido do código do usuário (professor).");
+		System.out.println("5) Para consultar a quantidade de notificações recebidas por um professor, digite o comando 'ntf', seguido do código do usuário (professor).");
+		System.out.println("6) Para consultar as informações de um livro, digite o comando 'liv', seguido do código do livro.");
+		System.out.println("7) Para consultar as informações de um usuário, digite o comando 'usu', seguido do código do usuário.");
+		System.out.println("8) Para ver novamente a lista de comandos, caso esqueça, digite o comando 'lis'.");
+		System.out.println("9) Para sair, digite 'ext'");
+		System.out.println();
+	}
+
+	public void finalizarPrograma()
+	{
+		System.out.println("Programa finalizado com sucesso. Volte sempre !");
+		System.out.println();
+	}
 
 	// INTERFACE COM O USUÁRIO
 
@@ -82,37 +104,60 @@ public class InterfaceUsuario {
 		livro7.adicionarExemplar(exemplar8);
 		livro7.adicionarExemplar(exemplar9);
 
-
+		
 
 		this.inicializarComandos();
-		CarregadorParametros parametros = Fabrica.instanciarCarregadorDeParametros(usuario4.getCodigo(),livro1.getCodigo());
-
-	
-		String comando1 = this.executarComando("res", parametros);
-		System.out.println(comando1);
-
-		String comando5 = this.executarComando("res", parametros);
-		System.out.println(comando5);
-
-		String comando4 = this.executarComando("dev", parametros);
-		System.out.println(comando4);
-
-		String comando3 = this.executarComando("emp", parametros);
-		System.out.println(comando3);
-
-		String comando8 = this.executarComando("dev", parametros);
-		System.out.println(comando8);
-
-		String comando10 = this.executarComando("emp", parametros);
-		System.out.println(comando10);
-
-		String comando6 = this.executarComando("dev", parametros);
-		System.out.println(comando6);
 		
+
+
+
+		System.out.println();
+		System.out.println("---  SISTEMA BIBLIOTECA  ---");
+		System.out.println();
+		System.out.println("Seja bem-vindo(a)! ");
+		System.out.println();
+		System.out.println("Lista de comandos: ");
+		System.out.println();
+		System.out.println("1) Para realizar um empréstimo, digite o comando 'emp', seguido do código do usuário e código do livro.");
+		System.out.println("2) Para realizar uma devolução, digite o comando 'dev', seguido do código do usuário e código do livro.");
+		System.out.println("3) Para realizar uma reserva, digite o comando 'res', seguido do código do usuário e código do livro.");
+		System.out.println("4) Para cadastrar um professor como observador, digite o comando 'obs', seguido do código do usuário (professor).");
+		System.out.println("5) Para consultar a quantidade de notificações recebidas por um professor, digite o comando 'ntf', seguido do código do usuário (professor).");
+		System.out.println("6) Para consultar as informações de um livro, digite o comando 'liv', seguido do código do livro.");
+		System.out.println("7) Para consultar as informações de um usuário, digite o comando 'usu', seguido do código do usuário.");
+		System.out.println("8) Para ver novamente a lista de comandos, caso esqueça, digite o comando 'lis'.");
+		System.out.println("9) Para sair, digite 'ext'");
+		System.out.println();
+
 		
-		String comando9 = this.executarComando("usu", parametros);
-		System.out.println(comando9);
+		while(true)
+		{
+			Scanner entrada = new Scanner(System.in);
+			
+			System.out.print("> "); 
+            String linha = entrada.nextLine();
+            String[] partes = linha.split(" ");
+			System.out.println();
+
+            String comandoDeEntrada = partes[0];
+            String parametroUm = partes.length > 1 ? partes[1] : null;
+            String parametroDois = partes.length > 2 ? partes[2] : null;
+			
+			if (comandoDeEntrada.equals("ext"))
+			{
+				this.finalizarPrograma();
+				break;
+			}
+			else if(comandoDeEntrada.equals("lis"))
+			{
+				this.exibirListaDeComandos();
+				continue;
+			}
+
+			CarregadorParametros parametros = Fabrica.instanciarCarregadorDeParametros(parametroUm,parametroDois);
+			
+			String comando1 = this.executarComando(comandoDeEntrada, parametros);
+			System.out.println(comando1);
+		}
 	}
-	
-
 }
