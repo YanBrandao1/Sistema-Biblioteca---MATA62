@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class Fabrica {
     
@@ -60,5 +61,25 @@ public class Fabrica {
     public static ConsultarInformacoesDeLivroComando criarInstanciaDeConsultarInformacoesDeLivroComando()
     {
         return new ConsultarInformacoesDeLivroComando();
+    }
+
+    public static ConsultarInformacoesDeUsuarioComando criarInstanciaDeConsultarInformacoesDeUsuarioComando()
+    {
+        return new ConsultarInformacoesDeUsuarioComando();
+    }
+
+    public static CarregadorParametros instanciarCarregadorDeParametros(String parametroUm)
+    {
+        return new CarregadorParametros(parametroUm);
+    }
+
+    public static CarregadorParametros instanciarCarregadorDeParametros(String parametroUm, String parametroDois)
+    {
+        return new CarregadorParametros(parametroUm, parametroDois);
+    }
+
+    public static HashMap instanciarHashMapStringComando()
+    {
+        return new HashMap<String,Comando>();
     }
 }

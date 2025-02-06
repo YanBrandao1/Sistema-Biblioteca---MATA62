@@ -14,6 +14,7 @@ public abstract class UsuarioAbstrato
     public abstract String emprestar(Livro livro);
     public abstract String devolver(Livro livro);
     public abstract String reservar(Livro livro);
+    public abstract String consultarInformacoesDoUsuario(String codigoDoUsuario);
 
     public String getCodigo()
     {

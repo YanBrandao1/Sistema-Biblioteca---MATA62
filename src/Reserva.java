@@ -31,4 +31,9 @@ public class Reserva
     {
         this.reservaIsAtiva = false;
     }
+
+    public LocalDateTime getDataDaReserva()
+    {
+        return this.dataDaReserva;
+    }
 }

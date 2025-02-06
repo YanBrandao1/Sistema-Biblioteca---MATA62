@@ -49,8 +49,14 @@ public class Emprestimo
         return this.codigoDoLivro;
     }
     
+    public void setDataFim()
+    {
+        this.dataFim = LocalDateTime.now();
+    }
+
     public void cancelarEmprestimo()
     {
         this.emprestimoEmAberto = false;
+        this.setDataFim();
     }
 }

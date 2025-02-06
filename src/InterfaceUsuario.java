@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 public class InterfaceUsuario {
 
-	private HashMap<String,Comando> comandos = new HashMap<String,Comando>();
+	private HashMap<String,Comando> comandos = Fabrica.instanciarHashMapStringComando();
 	
 	private void inicializarComandos() {
 		comandos.put("emp", Fabrica.criarInstanciaDeComandoEmprestar());
@@ -11,6 +11,7 @@ public class InterfaceUsuario {
 		comandos.put("obs", Fabrica.criarInstanciaDeComandoRegistrarObservador());
 		comandos.put("ntf", Fabrica.criarInstanciaDeConsultarNotificacoesRecebidas());
 		comandos.put("liv", Fabrica.criarInstanciaDeConsultarInformacoesDeLivroComando());
+		comandos.put("usu", Fabrica.criarInstanciaDeConsultarInformacoesDeUsuarioComando());
 	}
 	
 	public String executarComando(String strComando, CarregadorParametros parametros) {
@@ -84,45 +85,32 @@ public class InterfaceUsuario {
 
 
 		this.inicializarComandos();
-		CarregadorParametros parametros = new CarregadorParametros(usuario4.getCodigo(),livro1.getCodigo());
+		CarregadorParametros parametros = Fabrica.instanciarCarregadorDeParametros(usuario4.getCodigo(),livro1.getCodigo());
 
-		
-
-		String comando5 = this.executarComando("obs", parametros);
-		System.out.println(comando5);
-
-		System.out.println();
-
+	
 		String comando1 = this.executarComando("res", parametros);
 		System.out.println(comando1);
-			
-		System.out.println();
 
-		String comando4 = this.executarComando("res", parametros);
+		String comando5 = this.executarComando("res", parametros);
+		System.out.println(comando5);
+
+		String comando4 = this.executarComando("dev", parametros);
 		System.out.println(comando4);
 
-		System.out.println();
+		String comando3 = this.executarComando("emp", parametros);
+		System.out.println(comando3);
 
-		String comando6 = this.executarComando("res", parametros);
-		System.out.println(comando6);
-
-		parametros.setParametroUm(usuario1.getCodigo());
-
-		String comando7 = this.executarComando("res", parametros);
-		System.out.println(comando7);
-		
-		parametros.setParametroUm(usuario4.getCodigo());
-
-		String comando8 = this.executarComando("ntf", parametros);
+		String comando8 = this.executarComando("dev", parametros);
 		System.out.println(comando8);
 
 		String comando10 = this.executarComando("emp", parametros);
 		System.out.println(comando10);
-		
-		String comando11 = this.executarComando("emp", parametros);
-		System.out.println(comando11);
 
-		String comando9 = this.executarComando("liv", parametros);
+		String comando6 = this.executarComando("dev", parametros);
+		System.out.println(comando6);
+		
+		
+		String comando9 = this.executarComando("usu", parametros);
 		System.out.println(comando9);
 	}
 	

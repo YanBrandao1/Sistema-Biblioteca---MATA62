@@ -4,13 +4,13 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
-import java.util.List;
 
 public class Repositorio
 {
     private List<UsuarioAbstrato> usuarios = new ArrayList<UsuarioAbstrato>();
 	private List<Livro> livros = new ArrayList<Livro>();
     private List<Reserva> reservas = new ArrayList<Reserva>();
+    private List<Reserva> reservasInativas = new ArrayList<Reserva>();
     private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();
                                                 
     private static Repositorio instancia;
@@ -67,7 +67,8 @@ public class Repositorio
         return emprestimos;
     }
 
-    public void removerReservaDaLista(String codigoDoUsuario, String codigoDoLivro) {
+    public void removerReservaDaLista(String codigoDoUsuario, String codigoDoLivro)
+    {
         Iterator<Reserva> iterator = reservas.iterator();
         
         while (iterator.hasNext()) {
@@ -78,11 +79,12 @@ public class Repositorio
                 
                 reserva.cancelarReserva();
                 iterator.remove();
+                this.adicionarReservaInativa(reserva);
             }
         }
     }
 
-    public void removerEmprestimoDaLista(String codigoDoUsuario, String codigoDoLivro)
+    public void inativarEmprestimo(String codigoDoUsuario, String codigoDoLivro)
     {
         Iterator<Emprestimo> iterator = emprestimos.iterator();
         
@@ -94,7 +96,7 @@ public class Repositorio
                 
                 if (emprestimo.getEmprestimoEmAberto()) {
                     emprestimo.cancelarEmprestimo();
-                    iterator.remove();
+
                 }
             }
         }
@@ -175,5 +177,52 @@ public class Repositorio
                 return emprestimo;
         }
         return null;
+    }
+
+    public Reserva obterReservaDeUmUsuarioParaUmLivro(UsuarioAbstrato usuario, Livro livro)
+    {
+        for(Reserva reserva : reservas)
+        {
+            if(reserva.getCodigoDoUsuario() == usuario.getCodigo())
+                return reserva;
+        }
+        return null;
+    }
+
+    public void adicionarReservaInativa(Reserva reservaInativa)
+    {
+        reservasInativas.add(reservaInativa);
+    }
+
+    public List<Emprestimo> ObterListaDeEmprestimosDeUmUsuario(String codigoDoUsuario)
+    {
+        List<Emprestimo> emprestimosDoUsuario = new ArrayList<Emprestimo>();
+        for (Emprestimo emprestimo : emprestimos)
+        {
+            if (emprestimo.getCodigoDoUsuario() == codigoDoUsuario)
+            {
+             emprestimosDoUsuario.add(emprestimo);
+            }
+        }
+        return emprestimosDoUsuario;
+    }
+
+    public List<Reserva> obterOTotalDeReservasDeUmUsuario(UsuarioAbstrato usuario)
+    {
+        List<Reserva> totalDeReservas =  new ArrayList<Reserva>(); // soma entre reservas ativas e inativas
+
+        for(Reserva reserva : reservas)
+        {
+            if(reserva.getCodigoDoUsuario() == usuario.getCodigo())
+                totalDeReservas.add(reserva);
+        }
+        
+        for(Reserva reserva : reservasInativas)
+        {
+            if(reserva.getCodigoDoUsuario() == usuario.getCodigo())
+                totalDeReservas.add(reserva);
+        }
+
+        return totalDeReservas;
     }
 }
